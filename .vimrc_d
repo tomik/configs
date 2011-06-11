@@ -1,0 +1,9 @@
+
+"c like behaviour for multiline comments
+setlocal fo-=t fo+=croql
+
+set foldmethod=indent
+" save ya folds
+"au BufWinLeave * mkview
+"au BufWinEnter * silent loadview
+
