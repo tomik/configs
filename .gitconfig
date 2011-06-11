@@ -1,1 +1,27 @@
-../.gitconfig
+[user]
+        name = Tomas Kozelek
+        email = tomas.kozelek@gmail.com
+[core]
+        excludesfile = /home/tomik/.gitignore
+[giggle]
+        compact-mode = false
+        main-window-geometry = 1278x975+0+12
+        main-window-maximized = false
+[color]
+        status = auto
+        diff = auto
+        branch = auto
+[alias]
+        b = branch
+        ba = branch -a 
+        bd = branch -D
+        st = status
+        ci = commit
+        co = checkout
+        l = log --summary
+        lf = log --full-diff -p
+        d = diff
+        dc = diff --cached
+[merge]
+;       tool = opendiff
+
