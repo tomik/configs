@@ -11,7 +11,7 @@ syntax on
 
 " Suffixes that get lower priority when doing tab completion for filenames.
 " These are files we are not likely to want to edit or read.
- set suffixes=.pyc,.bak,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+set suffixes=.pyc,.bak,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
 " Search
 set hlsearch
@@ -21,7 +21,6 @@ set incsearch
 set wrapscan
 
 set listchars+=tab:>-
-
 
 set guifont=courier_new:h10
 set number
@@ -39,7 +38,9 @@ set shiftwidth=2
 
 set so=10
 
-set tm=200 " timeout for shortcuts
+" timeout for shortcuts
+set tm=200
+
 " pressing j and k together escapes
 inoremap jk <esc>
 inoremap kj <esc>
@@ -53,8 +54,6 @@ noremap <Leader>a :Ack -i <cword><CR>
 set textwidth=150
 set fileencodings=utf-8,iso-8859-2
 
-"set tags=$HOME/prg/unix/tags
-"set backspace=indent,eol,start " ako ma fungovat backspace v insert mode
 set history=50
 
 "packages management
@@ -66,22 +65,21 @@ if has("autocmd")
   " to automatically do language-dependent indenting add 'indent' as well.
 	filetype plugin on
 
-  autocmd VimEnter * echo "One line to rule them all ..."
-  autocmd VimLeave * echo "Good job ! ... see ya later ;)"
+  autocmd VimEnter * echo "Let's do this ..."
+  autocmd VimLeave * echo "Good job!"
   autocmd FileType python source ~/.vimrc_py
   autocmd FileType haskell source ~/.vimrc_hs
   autocmd FileType d source ~/.vimrc_d
 
   "autocmd BufOnClose * :%s/\s*$//e
-
 endif
 
-"colorscheme delek
+colorscheme delek
 
 map gd [I
-	" Yank to the end of the line
+" Yank to the end of the line
 map Y y$
-  "reload
+"reload
 map _rld :source ~/.vimrc
 
 "cmap vsp vsplit
@@ -106,10 +104,6 @@ imap OM
 
 filetype plugin on
 
-" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" can be called correctly.
-"set shellslash
-
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
@@ -123,11 +117,9 @@ filetype indent on
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
-
-let g:neocomplcache_enable_at_startup = 1
-
 ab teh the
 
+let g:neocomplcache_enable_at_startup = 1
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
