@@ -1,0 +1,40 @@
+#!/bin/bash
+
+rm -rf .svnd;
+mkdir .svnd;
+mkdir .svnd/after;
+cat - > .svnd/diff;
+cat .svnd/diff | grep "^Index: [^ ]*$" | cut -d " " -f 2 > .svnd/files;
+
+#copy the files to temp location
+while read LINE; do
+  cp --parents $LINE .svnd/after;
+done < .svnd/files;
+cp -r .svnd/after .svnd/before;
+
+#patch before files
+cd .svnd/before;
+patch -R -p0 -i ../diff 1>/dev/null;
+cd - 1>/dev/null;
+
+#create mock files after and before
+for MODE in "after" "before" 
+do
+  DIR=".svnd/$MODE";
+  MOCK="$DIR/mock";
+  while read LINE; do
+    #add file headers
+    echo "==================" >> $MOCK;
+    echo "FILENAME $LINE ($MODE)" >> $MOCK;
+    echo "==================" >> $MOCK;
+    cat $DIR/$LINE >> $MOCK;
+  done < .svnd/files;
+done;
+
+#results 
+mv .svnd/after/mock .svnd/a;
+mv .svnd/before/mock .svnd/b;
+
+#cleanup
+rm -rf .svnd/after .svnd/before .svnd/diff;
+

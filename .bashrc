@@ -1,16 +1,9 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-#paths for tomik
 
 export MANPATH=$MANPATH:/usr/share/man
 export PATH=/usr/local/bin/:$HOME/usr/bin:$PATH
 export PYTHONPATH=$HOME/usr/lib/python:$PYTHONPATH
+export CLASSPATH=.:/usr/local/Cellar/clojure/1.2.1/clojure.jar:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -39,6 +32,8 @@ alias pm='python manage.py'
 alias cgos='cgosview cgos.lri.fr 6919'
 alias rmpyc='find ./ -name "*.pyc" | xargs -i rm {}'
 alias dummy_smtp='python -m smtpd -n -c DebuggingServer localhost:1025'
+#unicode detach reconnect
+alias scr='screen -U -d -R'
 
 alias __e1='sshfs tomik@zene.sk: ~/mnt/e1/'
 alias __linda='sshfs tomik@linda.karlov.mff.cuni.cz: ~/mnt/linda/'
@@ -47,6 +42,7 @@ alias _krabicka='ssh -p2222 tomik@krabicka.net'
 alias _linda='ssh tomik@linda.karlov.mff.cuni.cz'
 alias _e1='ssh tomik@zene.sk'
 alias _conan='ssh tomik@conan.sk'
+alias _grumpy='ssh 82.170.157.148'
 
 export EDITOR=vim
 
@@ -60,4 +56,3 @@ fi
 
 echo
 fortune
-
