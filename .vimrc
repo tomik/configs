@@ -71,6 +71,7 @@ if has("autocmd")
 
   " this didn't work when in bundle/vimclojure-2/ftdetect
   autocmd BufNewFile,BufRead *.clj set filetype=clojure
+  autocmd BufNewFile,BufRead *.cljs set filetype=clojure
   "autocmd BufOnClose * :%s/\s*$//e
 endif
 

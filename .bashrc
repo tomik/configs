@@ -1,9 +1,20 @@
 shopt -s checkwinsize
 
 export MANPATH=$MANPATH:/usr/share/man
-export PATH=/usr/local/bin/:$HOME/usr/bin:$PATH
+export PATH=/usr/local/bin/:$HOME/usr/bin:$HOME/bin:$PATH
 export PYTHONPATH=$HOME/usr/lib/python:$PYTHONPATH
-export CLASSPATH=.:/usr/local/Cellar/clojure/1.2.1/clojure.jar:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
+export CLJPATH=/usr/local/Cellar/clojure/1.2.1/clojure.jar
+export CLOJURESCRIPT_HOME=$HOME/lib/clojurescript
+export CLASSPATH=.:$CLJPATH:/usr/local/Cellar/clojure-contrib/1.2.0/clojure-contrib.jar
+# add clojurescript to classpath
+# TODO package as jar
+for next in lib/* src/clj src/cljs; do
+  CLASSPATH=$CLASSPATH:$CLOJURESCRIPT_HOME'/'$next
+done
+export EDITOR=vim
+
+# start nailgun server
+alias ng_server="java -cp ~/lib/server-2.2.0.jar:$CLJPATH vimclojure.nailgun.NGServer &"
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -14,6 +25,7 @@ alias la='ls -a'
 alias c='cd'
 alias v='vim'
 alias g='git'
+alias a='ack'
 alias gr='grep'
 alias du='du -hs'
 alias dus='du | sort'
@@ -29,27 +41,14 @@ alias pyhtmlgrep='grep -ri --include="*.py" --include="*.html"'
 alias vmw='DISPLAY=localhost:0.0 vmware-server-console'
 alias pmr='python manage.py runserver'
 alias pm='python manage.py'
-alias cgos='cgosview cgos.lri.fr 6919'
 alias rmpyc='find ./ -name "*.pyc" | xargs -i rm {}'
 alias dummy_smtp='python -m smtpd -n -c DebuggingServer localhost:1025'
-#unicode detach reconnect
-alias scr='screen -U -d -R'
 
-alias __e1='sshfs tomik@zene.sk: ~/mnt/e1/'
-alias __linda='sshfs tomik@linda.karlov.mff.cuni.cz: ~/mnt/linda/'
-alias __conan='sshfs tomik@conan.sk: ~/mnt/conan/'
-alias _krabicka='ssh -p2222 tomik@krabicka.net'
-alias _linda='ssh tomik@linda.karlov.mff.cuni.cz'
 alias _e1='ssh tomik@zene.sk'
-alias _conan='ssh tomik@conan.sk'
+alias __e1='sshfs tomik@zene.sk: ~/mnt/e1/'
 alias _grumpy='ssh 82.170.157.148'
 
-export EDITOR=vim
-
-DJANGO_DIR=/usr/lib/python2.5/site-packages/django/
-
 PS1='\[\e[1;35m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$ \[\e[m\]\[\e[1;37m\] '
-
 if [ $USER == "root" ]; then
   PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\033[0;37m\]'
 fi
