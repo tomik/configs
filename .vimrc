@@ -1,14 +1,34 @@
-set nocompatible
 
-"shows cursor
+" >> GENERAL
+
+filetype plugin on 
+filetype indent on 
+syntax on
+" reload on change
+set autoread
+
+" use nifty non-vi features
+set nocompatible
+" reload .vimrc on save
+au BufWritePost .vimrc source ~/.vimrc
+" timeout for shortcuts
+set timeoutlen=200
+let mapleader = ";"
+
+" info on cursor position in statusline
 set ruler
 set showmode
 set showcmd
+set number
 
-syntax on
+" >> COLORS AND FONTS
 
-" lower priority on tab completion
-set suffixes=.pyc,.bak,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+set bg=dark
+set enc=utf-8
+set fileencodings=utf-8,iso-8859-2
+colorscheme zellner
+
+" >> SEARCH AND INDEX
 
 set hlsearch
 set ignorecase
@@ -16,125 +36,83 @@ set incsearch
 " continues search from beginning 
 set wrapscan
 
-" see where my whitespace is
-set listchars=tab:\.\ ,nbsp:~,trail:_
+" lower priority on tab completion
+set suffixes=.pyc,.bak,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+set tags=tags;
+set history=50
 
-set guifont=courier_new:h10
-set number
+" search work under cursor
+noremap <Leader>a :Ack -i <cword><CR>
 
-set enc=utf-8
-set bg=dark
+" >> INDENTING
 
-" indent
 set expandtab
 set autoindent
 set smartindent
 set tabstop=2
 set softtabstop=2
+" spaces for autoindent
 set shiftwidth=2
+" see where my whitespace is
+set listchars=tab:\.\ ,nbsp:~,trail:_
+set foldmethod=manual
+set textwidth=150
 
-set so=10
+" >> GETTING AROUND
 
-" timeout for shortcuts
-set tm=200
+" short movements
+noremap <C-P> 10k
+noremap <C-N> 10j
+
+" navigating in copen
+nnoremap <Leader>n :cn<CR>
+nnoremap <Leader>p :cp<CR>
+
+noremap <Leader>N :NERDTree<CR>
+" quick buffer switching
+noremap <Leader>bp :bp<CR>
+noremap <Leader>bn :bn<CR>
+
+noremap <Leader>w :w!<CR>
+
+map Y y$
+
+" >> VIM MODES
 
 " pressing j and k together escapes
 inoremap jk <esc>
 inoremap kj <esc>
 inoremap KJ <esc>
 inoremap JK <esc>
-" in normal mode jk/kj is a small jump
-noremap jk 10j0w  
-noremap kj 10k0w 
 
-let mapleader = "\\"
-noremap <Leader>a :Ack -i <cword><CR>
-nnoremap <Leader>n :cn<CR>
-"nnoremap <Leader>p :cp<CR>
+" >> FILE SPECIFIC
 
-" set nowrap
-set textwidth=150
-set fileencodings=utf-8,iso-8859-2
+au FileType python set tabstop=4
+au FileType python set softtabstop=4
+au FileType python set shiftwidth=4
+au FileType python set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+au FileType python ab pymain if __name__ == '__main__':
 
-set tags=tags;
-set history=50
+au FileType haskell set tabstop=4
+au FileType haskell set softtabstop=4
+au FileType haskell set shiftwidth=4
+
+"c like behaviour for multiline comments
+au FileType d source setlocal fo-=t fo+=croql
+au FileType d source set foldmethod=indent
+
+" this didn't work when in bundle/vimclojure-2/ftdetect
+au BufNewFile,BufRead *.clj set filetype=clojure
+au BufNewFile,BufRead *.cljs set filetype=clojure
+au BufNewFile,BufRead *.coffee set filetype=coffee
+
+" compile coffee script files on save
+au BufWritePost *.coffee !coffee -c <afile> 2>&1
+
+" >> PACKAGES
 
 " keep my package sanity
 call pathogen#runtime_append_all_bundles()
-
-if has("autocmd")
-  filetype plugin indent on 
-  " specialized .vimrc files
-  autocmd FileType python source ~/.vimrc_py
-  autocmd FileType haskell source ~/.vimrc_hs
-  autocmd FileType d source ~/.vimrc_d
-  " this didn't work when in bundle/vimclojure-2/ftdetect
-  autocmd BufNewFile,BufRead *.clj set filetype=clojure
-  autocmd BufNewFile,BufRead *.cljs set filetype=clojure
-  autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-  " compile coffee script files on save
-  autocmd BufWritePost *.coffee !coffee -c <afile> 2>&1
-  " reload .vimrc on save
-  autocmd BufWritePost .vimrc source %
-endif
-
-set autoread
-
-colorscheme delek
-
-map gd [I
-" yank to the end of the line
-map Y y$
-" reload
-map _rld :source ~/.vimrc
-
-imap (( ()<esc>i
-imap [[ []<esc>i
-imap {{ {}<esc>i
-
-let g:tex_flavor='latex'
-
-" neocomplcache TODO revise
-let g:neocomplcache_enable_at_startup = 1
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-" AutoComplPop like behavior.
-let g:neocomplcache_enable_auto_select = 1
-
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-noremap <F2> :NERDTree<CR>
-noremap <F5> :bn<CR>
-noremap <F6> :bp<CR>
-
-set foldmethod=manual
 
 " vimclojure
 let vimclojure#FuzzyIndent=1
