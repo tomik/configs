@@ -64,16 +64,21 @@ call pathogen#runtime_append_all_bundles()
 
 if has("autocmd")
   filetype plugin indent on 
-
+  " specialized .vimrc files
   autocmd FileType python source ~/.vimrc_py
   autocmd FileType haskell source ~/.vimrc_hs
   autocmd FileType d source ~/.vimrc_d
-
   " this didn't work when in bundle/vimclojure-2/ftdetect
   autocmd BufNewFile,BufRead *.clj set filetype=clojure
   autocmd BufNewFile,BufRead *.cljs set filetype=clojure
-  "autocmd BufOnClose * :%s/\s*$//e
+  autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+  " compile coffee script files on save
+  autocmd BufWritePost *.coffee !coffee -c <afile> 2>&1
+  " reload .vimrc on save
+  autocmd BufWritePost .vimrc source %
 endif
+
+set autoread
 
 colorscheme delek
 
