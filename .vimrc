@@ -1,12 +1,6 @@
 
 " >> GENERAL
 
-filetype plugin on 
-filetype indent on 
-syntax on
-" reload on change
-set autoread
-
 " use nifty non-vi features
 set nocompatible
 " reload .vimrc on save
@@ -15,18 +9,31 @@ au BufWritePost .vimrc source ~/.vimrc
 set timeoutlen=200
 let mapleader = ";"
 
-" info on cursor position in statusline
-set ruler
-set showmode
-set showcmd
-set number
-
-" >> COLORS AND FONTS
-
 set bg=dark
+colorscheme zellner
+
+" >> FILES AND BUFFERS
+
+filetype plugin on 
+filetype indent on 
+syntax on
+
 set enc=utf-8
 set fileencodings=utf-8,iso-8859-2
-colorscheme zellner
+" reload on change
+set autoread
+set autowrite
+set noswapfile
+set nobackup
+set nowritebackup
+" allow unloading unsaved buffer
+set hidden
+
+noremap <Leader>N :NERDTree<CR>
+" quick buffer switching
+noremap <Leader>bp :bp<CR>
+noremap <Leader>bn :bn<CR>
+noremap <Leader>w :w!<CR>
 
 " >> SEARCH AND INDEX
 
@@ -68,13 +75,6 @@ noremap <C-N> 10j
 nnoremap <Leader>n :cn<CR>
 nnoremap <Leader>p :cp<CR>
 
-noremap <Leader>N :NERDTree<CR>
-" quick buffer switching
-noremap <Leader>bp :bp<CR>
-noremap <Leader>bn :bn<CR>
-
-noremap <Leader>w :w!<CR>
-
 map Y y$
 
 " >> VIM MODES
@@ -84,6 +84,13 @@ inoremap jk <esc>
 inoremap kj <esc>
 inoremap KJ <esc>
 inoremap JK <esc>
+
+" info on cursor position in statusline
+set ruler
+set showmode
+set showcmd
+set number
+set wildmenu
 
 " >> FILE SPECIFIC
 
