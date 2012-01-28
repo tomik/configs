@@ -3,6 +3,7 @@
         email = tomas.kozelek@gmail.com
 [core]
         excludesfile = /home/tomik/.gitignore
+	editor = /usr/bin/vim
 [giggle]
         compact-mode = false
         main-window-geometry = 1278x975+0+12
