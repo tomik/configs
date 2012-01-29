@@ -8,6 +8,8 @@ au BufWritePost .vimrc source ~/.vimrc
 " timeout for shortcuts
 set timeoutlen=200
 let mapleader = ";"
+" erase old autocommands
+au!
 
 set bg=dark
 colorscheme zellner
