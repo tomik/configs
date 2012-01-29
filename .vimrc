@@ -1,5 +1,5 @@
 
-" >> GENERAL
+" ==>> GENERAL
 
 " use nifty non-vi features
 set nocompatible
@@ -12,7 +12,7 @@ let mapleader = ";"
 set bg=dark
 colorscheme zellner
 
-" >> FILES AND BUFFERS
+" ==>> FILES AND BUFFERS
 
 filetype plugin on 
 filetype indent on 
@@ -35,7 +35,7 @@ noremap <Leader>bp :bp<CR>
 noremap <Leader>bn :bn<CR>
 noremap <Leader>w :w!<CR>
 
-" >> SEARCH AND INDEX
+" ==>> SEARCH AND INDEX
 
 set hlsearch
 set ignorecase
@@ -51,7 +51,7 @@ set history=50
 " search work under cursor
 noremap <Leader>a :Ack -i <cword><CR>
 
-" >> INDENTING
+" ==>> INDENTING
 
 set expandtab
 set autoindent
@@ -65,7 +65,7 @@ set listchars=tab:\.\ ,nbsp:~,trail:_
 set foldmethod=manual
 set textwidth=150
 
-" >> GETTING AROUND
+" ==>> GETTING AROUND
 
 " short movements
 noremap <C-P> 10k
@@ -77,7 +77,7 @@ nnoremap <Leader>p :cp<CR>
 
 map Y y$
 
-" >> VIM MODES
+" ==>> VIM MODES
 
 " pressing j and k together escapes
 inoremap jk <esc>
@@ -92,7 +92,7 @@ set showcmd
 set number
 set wildmenu
 
-" >> FILE SPECIFIC
+" ==>> FILE SPECIFIC
 
 au FileType python set tabstop=4
 au FileType python set softtabstop=4
@@ -116,7 +116,7 @@ au BufNewFile,BufRead *.coffee set filetype=coffee
 " compile coffee script files on save
 au BufWritePost *.coffee !coffee -c <afile> 2>&1
 
-" >> PACKAGES
+" ==>> PACKAGES
 
 " keep my package sanity
 call pathogen#runtime_append_all_bundles()
