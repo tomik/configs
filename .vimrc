@@ -73,6 +73,10 @@ set textwidth=150
 noremap <C-P> 10k
 noremap <C-N> 10j
 
+" sections jumping 
+noremap js ?==>><CR>:nohl<CR>
+noremap ks /==>><CR>:nohl<CR>
+
 " navigating in copen
 nnoremap <Leader>n :cn<CR>
 nnoremap <Leader>p :cp<CR>
