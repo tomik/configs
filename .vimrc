@@ -1,6 +1,8 @@
 
 " ==>> GENERAL
 
+" erase old autocommands
+au!
 " use nifty non-vi features
 set nocompatible
 " reload .vimrc on save
@@ -8,8 +10,6 @@ au BufWritePost .vimrc source ~/.vimrc
 " timeout for shortcuts
 set timeoutlen=200
 let mapleader = ";"
-" erase old autocommands
-au!
 
 set bg=dark
 colorscheme zellner
@@ -66,6 +66,7 @@ set shiftwidth=2
 set listchars=tab:\.\ ,nbsp:~,trail:_
 set foldmethod=manual
 set textwidth=150
+set scrolloff=10
 
 " ==>> GETTING AROUND
 
@@ -74,8 +75,8 @@ noremap <C-P> 10k
 noremap <C-N> 10j
 
 " sections jumping 
-noremap js ?==>><CR>:nohl<CR>
-noremap ks /==>><CR>:nohl<CR>
+noremap js ?==>><CR>:nohl<CR>zt
+noremap ks /==>><CR>:nohl<CR>zt
 
 " navigating in copen
 nnoremap <Leader>n :cn<CR>
