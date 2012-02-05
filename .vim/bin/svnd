@@ -1,4 +1,0 @@
-#!/bin/bash
-svn diff $@ | svnd_build
-vimdiff .svnd/b .svnd/a
-rm -rf .svnd

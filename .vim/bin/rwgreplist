@@ -1,7 +1,0 @@
-#!/bin/bash
-# stdin ~ list of stuff to replace
-# $1 pattern
-
-while read line; do
-  find amd am f1 unit_tests -name "*\.h" -o -name "*\.cc" | xargs -i sed -i "s/$line/$1/g" {}
-done
