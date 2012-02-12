@@ -1,20 +1,19 @@
 
 " ==>> GENERAL
 
-" erase old autocommands
-au!
 " use nifty non-vi features
 set nocompatible
+" erase old autocommands
+au!
 " reload .vimrc on save
 au BufWritePost .vimrc source ~/.vimrc
 " timeout for shortcuts
 set timeoutlen=200
 let mapleader = ";"
 
-set bg=dark
 colorscheme zellner
 
-" ==>> FILES AND BUFFERS
+"" ==>> FILES AND BUFFERS
 
 filetype plugin on 
 filetype indent on 
@@ -37,7 +36,7 @@ noremap <Leader>bp :bp<CR>
 noremap <Leader>bn :bn<CR>
 noremap <Leader>w :w!<CR>
 
-" ==>> SEARCH AND INDEX
+"" ==>> SEARCH AND INDEX
 
 set hlsearch
 set ignorecase
@@ -101,6 +100,14 @@ set wildmenu
 
 " ==>> FILE SPECIFIC
 
+" this didn't work when in bundle/vimclojure-2/ftdetect
+au BufNewFile,BufRead *.clj set filetype=clojure
+au BufNewFile,BufRead *.cljs set filetype=clojure
+au BufNewFile,BufRead *.coffee set filetype=coffee
+
+" compile coffee script files on save
+au BufWritePost *.coffee !coffee -c <afile> 2>&1
+
 au FileType python set tabstop=4
 au FileType python set softtabstop=4
 au FileType python set shiftwidth=4
@@ -111,17 +118,13 @@ au FileType haskell set tabstop=4
 au FileType haskell set softtabstop=4
 au FileType haskell set shiftwidth=4
 
+au FileType coffee set tabstop=2
+au FileType coffee set softtabstop=2
+au FileType coffee set shiftwidth=2
+
 "c like behaviour for multiline comments
 au FileType d source setlocal fo-=t fo+=croql
 au FileType d source set foldmethod=indent
-
-" this didn't work when in bundle/vimclojure-2/ftdetect
-au BufNewFile,BufRead *.clj set filetype=clojure
-au BufNewFile,BufRead *.cljs set filetype=clojure
-au BufNewFile,BufRead *.coffee set filetype=coffee
-
-" compile coffee script files on save
-au BufWritePost *.coffee !coffee -c <afile> 2>&1
 
 " ==>> PACKAGES
 
