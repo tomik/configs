@@ -1,4 +1,3 @@
-
 " ==>> GENERAL
 
 " use nifty non-vi features
@@ -80,6 +79,10 @@ noremap ks /==>><CR>:nohl<CR>zt
 " navigating in copen
 nnoremap <Leader>n :cn<CR>
 nnoremap <Leader>p :cp<CR>
+
+" replacement from register
+nnoremap S "_diw"0P
+vnoremap S "_d"0P
 
 map Y y$
 
