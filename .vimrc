@@ -33,6 +33,8 @@ noremap <Leader>N :NERDTree<CR>
 " quick buffer switching
 noremap <Leader>bp :bp<CR>
 noremap <Leader>bn :bn<CR>
+noremap <Leader><Leader> <C-^>
+
 noremap <Leader>w :w!<CR>
 
 "" ==>> SEARCH AND INDEX
