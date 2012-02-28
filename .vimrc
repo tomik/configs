@@ -72,6 +72,10 @@ set scrolloff=10
 noremap <C-P> 10k
 noremap <C-N> 10j
 
+" up/down consistent with wrapped lines
+nnoremap j gj
+nnoremap k gk
+
 " sections jumping 
 noremap js ?==>><CR>:nohl<CR>zt
 noremap ks /==>><CR>:nohl<CR>zt
