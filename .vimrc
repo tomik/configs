@@ -134,6 +134,10 @@ au FileType coffee set tabstop=2
 au FileType coffee set softtabstop=2
 au FileType coffee set shiftwidth=2
 
+au FileType html set tabstop=2
+au FileType html set softtabstop=2
+au FileType html set shiftwidth=2
+
 "c like behaviour for multiline comments
 au FileType d source setlocal fo-=t fo+=croql
 au FileType d source set foldmethod=indent
