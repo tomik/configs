@@ -117,6 +117,9 @@ au BufNewFile,BufRead *.coffee set filetype=coffee
 " compile coffee script files on save
 au BufWritePost *.coffee !coffee -c <afile> 2>&1
 
+" compile less files on save
+au BufWritePost *.less !lessc -c <afile> > %<.css
+
 au FileType python set tabstop=4
 au FileType python set softtabstop=4
 au FileType python set shiftwidth=4
