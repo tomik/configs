@@ -31,11 +31,9 @@ set hidden
 
 noremap <Leader>N :NERDTree<CR>
 " quick buffer switching
-noremap <Leader>bp :bp<CR>
-noremap <Leader>bn :bn<CR>
-noremap <Leader><Leader> <C-^>
-
-noremap <Leader>w :w!<CR>
+noremap <Leader>d :bp<CR>
+noremap <Leader>f :bn<CR>
+noremap <Leader>s <C-^>
 
 "" ==>> SEARCH AND INDEX
 
@@ -146,6 +144,7 @@ au FileType d source set foldmethod=indent
 
 " keep my package sanity
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 " vimclojure
 let vimclojure#FuzzyIndent=1
