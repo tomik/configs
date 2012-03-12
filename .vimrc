@@ -14,8 +14,8 @@ colorscheme zellner
 
 "" ==>> FILES AND BUFFERS
 
-filetype plugin on 
-filetype indent on 
+filetype off
+filetype plugin indent on 
 syntax on
 
 set enc=utf-8
@@ -110,7 +110,12 @@ set wildmenu
 " this didn't work when in bundle/vimclojure-2/ftdetect
 au BufNewFile,BufRead *.clj set filetype=clojure
 au BufNewFile,BufRead *.cljs set filetype=clojure
+au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.coffee set filetype=coffee
+au BufNewFile,BufRead *.html set filetype=html
+
+" autosave
+au FocusLost * :wa
 
 " compile coffee script files on save
 au BufWritePost *.coffee !coffee -c <afile> 2>&1
