@@ -15,7 +15,7 @@ colorscheme zellner
 "" ==>> FILES AND BUFFERS
 
 filetype off
-filetype plugin indent on 
+filetype plugin indent on
 syntax on
 
 set enc=utf-8
@@ -31,16 +31,25 @@ set hidden
 
 noremap <Leader>N :NERDTree<CR>
 " quick buffer switching
-noremap <Leader>d :bp<CR>
-noremap <Leader>f :bn<CR>
-noremap <Leader>s <C-^>
+noremap <Leader>j <C-^>
+
+" autosave on buffer switch
+set autowrite
+
+" get rid of whitespace
+" au BufLeave * silent! %s/[ \t]*$//g
+
+" save file as root
+cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
 
 "" ==>> SEARCH AND INDEX
 
 set hlsearch
 set ignorecase
+" when search pattern contains uppercase char disable ignorecase
+set smartcase
 set incsearch
-" continues search from beginning 
+" continues search from beginning
 set wrapscan
 
 " lower priority on tab completion
@@ -50,6 +59,10 @@ set history=50
 
 " search work under cursor
 noremap <Leader>a :Ack -i <cword><CR>
+" save typing :nohl
+noremap <Leader><space> :nohl<CR>
+" jump to matching bracket for a short period of time
+set showmatch
 
 " ==>> INDENTING
 
@@ -61,12 +74,9 @@ set softtabstop=2
 " spaces for autoindent
 set shiftwidth=2
 " see where my whitespace is
+set list
 set listchars=tab:\.\ ,nbsp:~,trail:_
 set foldmethod=manual
-set textwidth=150
-set scrolloff=10
-
-" ==>> GETTING AROUND
 
 " short movements
 noremap <C-P> 10k
@@ -76,13 +86,16 @@ noremap <C-N> 10j
 nnoremap j gj
 nnoremap k gk
 
-" sections jumping 
+" sections jumping
 noremap js ?==>><CR>:nohl<CR>zt
 noremap ks /==>><CR>:nohl<CR>zt
 
 " navigating in copen
 nnoremap <Leader>n :cn<CR>
-nnoremap <Leader>p :cp<CR>
+
+" paste mode
+nnoremap <Leader>i :set paste<CR>
+nnoremap <Leader>I :set nopaste<CR>
 
 " replacement from register
 nnoremap S "_diw"0P
@@ -114,9 +127,6 @@ au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.coffee set filetype=coffee
 au BufNewFile,BufRead *.html set filetype=html
 
-" autosave
-au FocusLost * :wa
-
 " compile coffee script files on save
 au BufWritePost *.coffee !coffee -c <afile> 2>&1
 
@@ -147,16 +157,16 @@ au FileType d source set foldmethod=indent
 
 " ==>> PACKAGES
 
+" vimclojure
+let g:vimclojure#FuzzyIndent=1
+let g:vimclojure#HighlightBuiltins=1
+let g:vimclojure#HighlightContrib=1
+let g:vimclojure#DynamicHighlighting=1
+let g:vimclojure#ParenRainbow=1
+let g:vimclojure#WantNailgun = 1
+let g:vimclojure#NailgunClient = $HOME . "/.vim/bin/ng"
+
 " keep my package sanity
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
-
-" vimclojure
-let vimclojure#FuzzyIndent=1
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=1
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = $HOME . "/.vim/bin/ng"
 
