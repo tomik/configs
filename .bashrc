@@ -1,7 +1,9 @@
 shopt -s checkwinsize
 
+
 export MANPATH=$MANPATH:/usr/share/man
-export PATH=/usr/local/bin/:$HOME/usr/bin:$HOME/bin:$PATH
+export PATH=/opt/local/bin:/usr/local/bin/:$HOME/usr/bin:$HOME/bin:$PATH
+export PATH=$PATH:/usr/local/texlive/2011basic/bin/universal-darwin:/Developer/usr/bin
 export PYTHONPATH=$HOME/usr/lib/python:$PYTHONPATH
 export CLJPATH=/usr/local/Cellar/clojure/1.2.1/clojure.jar
 export CLOJURESCRIPT_HOME=$HOME/lib/clojurescript
@@ -14,7 +16,9 @@ done
 export EDITOR=vim
 
 # start nailgun server
-alias ng_server="java -cp ~/lib/server-2.2.0.jar:$CLJPATH vimclojure.nailgun.NGServer &"
+alias ng_server="java -cp ~/lib/server-2.2.0.jar:$CLJPATH:. vimclojure.nailgun.NGServer &"
+# followed by name of the file to run
+alias cljrun="java -cp $CLASSPATH clojure.main"
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -25,6 +29,7 @@ alias ls='ls -G'
 alias la='ls -a'
 alias c='cd'
 alias v='vim'
+alias r='ranger'
 alias g='git'
 alias a='ack'
 alias gr='grep'
@@ -33,6 +38,11 @@ alias dus='du | sort'
 alias df='df -h'
 alias su='sudo bash'
 alias rmf='rm -rf'
+
+alias hibernateon="sudo pmset -a hibernatemode 5"
+alias hibernateoff="sudo pmset -a hibernatemode 3"
+
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
 alias rwgrep='perl -i~ -pe'
 alias pygrep='grep -ri --include="*.py"'
