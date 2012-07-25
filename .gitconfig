@@ -21,8 +21,9 @@
 [color "diff"]
   whitespace = red reverse
 [core]
-  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   pager = less -FRSX
+  editor = /usr/bin/vim
 [alias]
   st = status
   ci = commit
