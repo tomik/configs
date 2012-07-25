@@ -6,3 +6,5 @@ screen -t htop    2 htop
 screen -t shell0  1
 screen -t edit    0  
 startup_message off
+# use <CTLR-Z> as a screen key
+escape 
