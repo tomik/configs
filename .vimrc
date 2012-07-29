@@ -29,7 +29,7 @@ set nowritebackup
 " allow unloading unsaved buffer
 set hidden
 
-noremap <Leader>N :NERDTree<CR>
+noremap <Leader>t :NERDTree<CR>
 " quick buffer switching
 noremap <Leader>j <C-^>
 
@@ -63,6 +63,9 @@ noremap <Leader>a :Ack -i <cword><CR>
 noremap <Leader><space> :nohl<CR>
 " jump to matching bracket for a short period of time
 set showmatch
+
+" search for tags all the way up to the root
+set tags=./tags,./ftags;$HOME
 
 " ==>> INDENTING
 
@@ -170,3 +173,37 @@ let g:vimclojure#NailgunClient = $HOME . "/.vim/bin/ng"
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+" TODO Move this to a plugin
+" Function to find files in subdirectories.
+" Credits to Vladimir Marek and http://vim.wikia.com/wiki/VimTip1234
+function! Find(name)
+  let l:list=system("find . -name '".a:name."*' | grep -v \".svn/\" | perl -ne 'print \"$.\\t$_\"'")
+  let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+  if l:num < 1
+    echo "'".a:name."' not found"
+    return
+  endif
+  if l:num != 1
+    echo l:list
+    let l:input=input("Which ? (CR=nothing)\n")
+    if strlen(l:input)==0
+      return
+    endif
+    if strlen(substitute(l:input, "[0-9]", "", "g"))>0
+      echo "Not a number"
+      return
+    endif
+    if l:input<1 || l:input>l:num
+      echo "Out of range"
+      return
+    endif
+    let l:line=matchstr("\n".l:list, "\n".l:input."\t[^\n]*")
+  else
+    let l:line=l:list
+  endif
+  let l:line=substitute(l:line, "^[^\t]*\t./", "", "")
+  execute ":e ".l:line
+endfunction
+command! -nargs=1 Find :call Find("<args>")
+
+noremap <Leader>f :Find 
