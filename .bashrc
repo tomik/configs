@@ -15,6 +15,12 @@ for next in lib/* src/clj src/cljs; do
 done
 export EDITOR=vim
 
+#energycraft
+ALLEGRO_PATH=/Volumes/data/Users/tomik/Downloads/allegro-5.1.2
+export CPLUS_INCLUDE_PATH=/usr/local/Cellar/boost/1.49.0/include:$ALLEGRO_PATH/include:$ALLEGRO_PATH/addons/image:$ALLEGRO_PATH/addons/native_dialog:$ALLEGRO_PATH/addons/primitives:$ALLEGRO_PATH/addons/font:$ALLEGRO_PATH/addons/ttf:
+export LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib:/Volumes/data/Users/tomik/Downloads/allegro-5.1.2/Builds/lib
+export LD_LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib:/Volumes/data/Users/tomik/Downloads/allegro-5.1.2/Builds/lib
+
 # start nailgun server
 alias ng_server="java -cp ~/lib/server-2.2.0.jar:$CLJPATH:. vimclojure.nailgun.NGServer &"
 # followed by name of the file to run
