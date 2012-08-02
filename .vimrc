@@ -1,5 +1,6 @@
 " ==>> GENERAL
 
+set t_Co=256
 " don't bug me all the time
 set visualbell
 " use nifty non-vi features
@@ -35,7 +36,7 @@ set nowritebackup
 " allow unloading unsaved buffer
 set hidden
 
-noremap <Leader>t :NERDTree<CR>
+noremap <Leader>e :NERDTree<CR>
 " quick buffer switching
 noremap <Leader>j <C-^>
 
