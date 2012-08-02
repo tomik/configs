@@ -1,5 +1,7 @@
 " ==>> GENERAL
 
+" don't bug me all the time
+set visualbell
 " use nifty non-vi features
 set nocompatible
 " erase old autocommands
@@ -7,16 +9,20 @@ au!
 " reload .vimrc on save
 au BufWritePost .vimrc source ~/.vimrc
 " timeout for shortcuts
-set timeoutlen=200
-let mapleader = ";"
+set timeoutlen=400
+" mouse is really usefule sometimes
+set mouse=a
 
-colorscheme zellner
+let mapleader = ";"
 
 "" ==>> FILES AND BUFFERS
 
 filetype off
 filetype plugin indent on
 syntax on
+
+colorscheme torte
+highlight Pmenu ctermbg=grey ctermfg=black
 
 set enc=utf-8
 set fileencodings=utf-8,iso-8859-2
@@ -54,7 +60,6 @@ set wrapscan
 
 " lower priority on tab completion
 set suffixes=.pyc,.bak,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
-set tags=tags;
 set history=50
 
 " search work under cursor
@@ -65,7 +70,7 @@ noremap <Leader><space> :nohl<CR>
 set showmatch
 
 " search for tags all the way up to the root
-set tags=./tags,./ftags;$HOME
+set tags=./tags;$HOME
 
 " ==>> INDENTING
 
@@ -177,7 +182,7 @@ call pathogen#helptags()
 " Function to find files in subdirectories.
 " Credits to Vladimir Marek and http://vim.wikia.com/wiki/VimTip1234
 function! Find(name)
-  let l:list=system("find . -name '".a:name."*' | grep -v \".svn/\" | perl -ne 'print \"$.\\t$_\"'")
+  let l:list=system("find . -name '*".a:name."*' | grep -v \".svn/\" | perl -ne 'print \"$.\\t$_\"'")
   let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
   if l:num < 1
     echo "'".a:name."' not found"
@@ -206,4 +211,18 @@ function! Find(name)
 endfunction
 command! -nargs=1 Find :call Find("<args>")
 
-noremap <Leader>f :Find 
+nmap <Leader>s <C-\>
+" I want to tell myself by <C-X><C-U> when I want to autocomplete.
+let g:clang_complete_auto = 0
+let g:clang_library_path = "/Volumes/data/Users/tomik/Downloads//clang+llvm-3.1-x86_64-apple-darwin11/lib"
+" /Developer/usr/clang-ide/lib/
+
+function! RefreshCS()
+  :silent ! find . -name "*cpp" -o -name "*hpp" > cscope.files
+  :silent cs kill 0
+  :silent cs add cscope.out
+  :silent !ctags -R .
+endfunction
+
+" refresh cscope and ctags
+nmap <Leader>cs :exec RefreshCS()<CR>
