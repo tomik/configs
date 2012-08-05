@@ -22,7 +22,7 @@ filetype off
 filetype plugin indent on
 syntax on
 
-colorscheme torte
+colorscheme 256-jungle
 highlight Pmenu ctermbg=grey ctermfg=black
 
 set enc=utf-8
@@ -226,4 +226,4 @@ function! RefreshCS()
 endfunction
 
 " refresh cscope and ctags
-nmap <Leader>cs :exec RefreshCS()<CR>
+nmap <Leader>r :exec RefreshCS()<CR>
