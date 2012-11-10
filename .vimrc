@@ -10,7 +10,7 @@ au!
 " reload .vimrc on save
 au BufWritePost .vimrc source ~/.vimrc
 " timeout for shortcuts
-set timeoutlen=400
+set timeoutlen=200
 " mouse is really usefule sometimes
 set mouse=a
 
@@ -21,9 +21,6 @@ let mapleader = ";"
 filetype off
 filetype plugin indent on
 syntax on
-
-colorscheme 256-jungle
-highlight Pmenu ctermbg=grey ctermfg=black
 
 set enc=utf-8
 set fileencodings=utf-8,iso-8859-2
@@ -48,6 +45,17 @@ set autowrite
 
 " save file as root
 cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
+
+" save and make
+cmap wm :wa \| make
+
+"" ==>> COLORS
+
+set background=dark
+let g:solarized_termcolors = 256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+colorscheme solarized
 
 "" ==>> SEARCH AND INDEX
 
@@ -87,6 +95,9 @@ set list
 set listchars=tab:\.\ ,nbsp:~,trail:_
 set foldmethod=manual
 
+" ==>> USEFUL
+inoremap {{ {<CR>}<Esc>O
+
 " short movements
 noremap <C-P> 10k
 noremap <C-N> 10j
@@ -101,10 +112,12 @@ noremap ks /==>><CR>:nohl<CR>zt
 
 " navigating in copen
 nnoremap <Leader>n :cn<CR>
+nnoremap <Leader>p :cn<CR>
+autocmd Filetype qf wincmd J
 
 " paste mode
-nnoremap <Leader>i :set paste<CR>
-nnoremap <Leader>I :set nopaste<CR>
+"nnoremap <Leader>i :set paste<CR>
+"nnoremap <Leader>I :set nopaste<CR>
 
 " replacement from register
 nnoremap S "_diw"0P
@@ -214,8 +227,8 @@ command! -nargs=1 Find :call Find("<args>")
 
 nmap <Leader>s <C-\>
 " I want to tell myself by <C-X><C-U> when I want to autocomplete.
-let g:clang_complete_auto = 0
-let g:clang_library_path = "/Volumes/data/Users/tomik/Downloads//clang+llvm-3.1-x86_64-apple-darwin11/lib"
+"let g:clang_complete_auto = 0
+"let g:clang_library_path = "/Volumes/data/Users/tomik/Downloads//clang+llvm-3.1-x86_64-apple-darwin11/lib"
 " /Developer/usr/clang-ide/lib/
 
 function! RefreshCS()
@@ -227,3 +240,16 @@ endfunction
 
 " refresh cscope and ctags
 nmap <Leader>r :exec RefreshCS()<CR>
+
+" use supertab with clang_complete
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-p>"
+
+" little mapping to help me with indentin
+noremap <Leader>i 20i<tab><esc>kF(jldw
+noremap ii ~hi
+
+let g:bufExplorerSplitBelow=1
+
+set exrc
+set secure
