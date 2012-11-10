@@ -4,7 +4,7 @@
 [color]
   ui = auto
 [color "branch"]
-  current = red 
+  current = red
   local = green
   remote = blue
 [color "diff"]
@@ -27,12 +27,18 @@
 [alias]
   st = status
   ci = commit
+  cia = commit -a
+  cim = commit -m
+  ciam = commit -a -m
   br = branch
   ba = branch -a
   bd = branch -D
   co = checkout
   d  = diff
-  lg = log -p
-  l  = log
+  lg = log -p --decorate
+  l  = log --one
+  log = log
   wc = whatchanged
+[push]
+  default = upstream
 
