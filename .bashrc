@@ -4,6 +4,7 @@ shopt -s checkwinsize
 export MANPATH=$MANPATH:/usr/share/man
 export PATH=/opt/local/bin:/usr/local/bin/:$HOME/usr/bin:$HOME/bin:$PATH
 export PATH=$PATH:/usr/local/texlive/2011basic/bin/universal-darwin:/Developer/usr/bin
+export PATH=$PATH:/usr/local/texlive/2011basic/bin/universal-darwin:/Developer/usr/bin
 export PYTHONPATH=$HOME/usr/lib/python:$PYTHONPATH
 export CLJPATH=/usr/local/Cellar/clojure/1.2.1/clojure.jar
 export CLOJURESCRIPT_HOME=$HOME/lib/clojurescript
@@ -17,9 +18,9 @@ export EDITOR=vim
 
 #energycraft
 ALLEGRO_PATH=/Volumes/data/Users/tomik/Downloads/allegro-5.1.2
-export CPLUS_INCLUDE_PATH=/usr/local/Cellar/boost/1.49.0/include:$ALLEGRO_PATH/include:$ALLEGRO_PATH/addons/image:$ALLEGRO_PATH/addons/native_dialog:$ALLEGRO_PATH/addons/primitives:$ALLEGRO_PATH/addons/font:$ALLEGRO_PATH/addons/ttf:
-export LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib:/Volumes/data/Users/tomik/Downloads/allegro-5.1.2/Builds/lib
-export LD_LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib:/Volumes/data/Users/tomik/Downloads/allegro-5.1.2/Builds/lib
+export CPLUS_INCLUDE_PATH=/usr/local/Cellar/boost/1.49.0/include
+export LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib:/Volumes/data/Users/tomik/Downloads/allegro-5.1.2/Builds/lib:/Volumes/data/Users/tomik/src/Energycraft/libraries/xAllegro
+export LD_LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib:/Volumes/data/Users/tomik/Downloads/allegro-5.1.2/Builds/lib:/Volumes/data/Users/tomik/src/Energycraft/libraries/xAllegro
 
 # start nailgun server
 alias ng_server="java -cp ~/lib/server-2.2.0.jar:$CLJPATH:. vimclojure.nailgun.NGServer &"
@@ -64,7 +65,10 @@ alias _e1='ssh tomik@zene.sk'
 alias __e1='sshfs tomik@zene.sk: ~/mnt/e1/'
 alias _grumpy='ssh 82.170.157.148'
 
-PS1='\[\e[1;35m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$ \[\e[m\]\[\e[1;37m\] '
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PS1='\[\e[1;35m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\]\[\e[1;33m\]$(parse_git_branch) \[\e[m\]\[\e[1;32m\]\$ \[\e[m\]\[\e[1;37m\] '
 if [ $USER == "root" ]; then
   PS1='\[\e[0;31m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[0;31m\]\$ \[\033[0;37m\]'
 fi
