@@ -49,3 +49,6 @@
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
+[submodule ".vim/bundle/vim-buffer-explorer"]
+	path = .vim/bundle/vim-buffer-explorer
+	url = git://github.com/widox/vim-buffer-explorer-plugin.git
