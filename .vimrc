@@ -143,6 +143,7 @@ set wildmenu
 " ==>> FILE SPECIFIC
 
 " this didn't work when in bundle/vimclojure-2/ftdetect
+au BufNewFile,BufRead *.json set filetype=javascript
 au BufNewFile,BufRead *.clj set filetype=clojure
 au BufNewFile,BufRead *.cljs set filetype=clojure
 au BufNewFile,BufRead *.less set filetype=less
@@ -185,7 +186,7 @@ let g:vimclojure#HighlightBuiltins=1
 let g:vimclojure#HighlightContrib=1
 let g:vimclojure#DynamicHighlighting=1
 let g:vimclojure#ParenRainbow=1
-let g:vimclojure#WantNailgun = 1
+let g:vimclojure#WantNailgun = 0
 let g:vimclojure#NailgunClient = $HOME . "/.vim/bin/ng"
 
 " keep my package sanity
@@ -227,8 +228,8 @@ command! -nargs=1 Find :call Find("<args>")
 
 nmap <Leader>s <C-\>
 " I want to tell myself by <C-X><C-U> when I want to autocomplete.
-"let g:clang_complete_auto = 0
-"let g:clang_library_path = "/Volumes/data/Users/tomik/Downloads//clang+llvm-3.1-x86_64-apple-darwin11/lib"
+let g:clang_complete_auto = 0
+let g:clang_library_path = "/Volumes/data/Users/tomik/Downloads//clang+llvm-3.1-x86_64-apple-darwin11/lib"
 " /Developer/usr/clang-ide/lib/
 
 function! RefreshCS()
