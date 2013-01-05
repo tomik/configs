@@ -78,6 +78,9 @@ set showmatch
 " search for tags all the way up to the root
 set tags=./tags;$HOME
 
+" gf searches recursively downwards the current directory
+set path+=./**,**
+
 " ==>> INDENTING
 
 set expandtab
