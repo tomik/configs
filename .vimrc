@@ -46,9 +46,6 @@ set autowrite
 " save file as root
 cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
 
-" save and make
-cmap wm :wa \| make
-
 "" ==>> COLORS
 
 set background=dark
