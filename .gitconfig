@@ -36,9 +36,10 @@
   co = checkout
   d  = diff
   lg = log -p --decorate
-  l  = log --one
+  l  = log --oneline
   log = log
   wc = whatchanged
+  plr = pull --rebase
 [push]
   default = upstream
 
