@@ -98,10 +98,6 @@ set foldmethod=manual
 " ==>> USEFUL
 inoremap {{ {<CR>}<Esc>O
 
-" short movements
-noremap <C-P> 10k
-noremap <C-N> 10j
-
 " up/down consistent with wrapped lines
 nnoremap j gj
 nnoremap k gk
