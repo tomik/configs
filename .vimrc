@@ -230,7 +230,8 @@ let g:clang_library_path = "/Volumes/data/Users/tomik/Downloads//clang+llvm-3.1-
 
 function! RefreshCS()
   :silent ! find . -name "*cpp" -o -name "*hpp" > cscope.files
-  :silent cs kill 0
+  :silent ! cscope -b -i cscope.files > cscope.out
+  :silent cs kill -1
   :silent cs add cscope.out
   :silent !ctags -R .
 endfunction
