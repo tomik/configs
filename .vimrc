@@ -187,8 +187,21 @@ let g:vimclojure#WantNailgun = 0
 let g:vimclojure#NailgunClient = $HOME . "/.vim/bin/ng"
 
 " keep my package sanity
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+"call pathogen#runtime_append_all_bundles()
+"call pathogen#helptags()
+
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'vim-scripts/cscope.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'wincent/Command-T'
 
 " TODO Move this to a plugin
 " Function to find files in subdirectories.
