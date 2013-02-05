@@ -19,8 +19,9 @@ export EDITOR=vim
 #energycraft
 ALLEGRO_PATH=/Volumes/data/Users/tomik/Downloads/allegro-5.1.2
 export CPLUS_INCLUDE_PATH=/usr/local/Cellar/boost/1.49.0/include
-export LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib:/Volumes/data/Users/tomik/Downloads/allegro-5.1.2/Builds/lib:/Volumes/data/Users/tomik/src/Energycraft/libraries/xAllegro
-export LD_LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib:/Volumes/data/Users/tomik/Downloads/allegro-5.1.2/Builds/lib:/Volumes/data/Users/tomik/src/Energycraft/libraries/xAllegro
+export LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib
+export LD_LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib
+export CXX=clang++
 
 # start nailgun server
 alias ng_server="java -cp ~/lib/server-2.2.0.jar:$CLJPATH:. vimclojure.nailgun.NGServer &"
