@@ -45,6 +45,7 @@ set autowrite
 
 " save file as root
 cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
+cmap wm :w \| make
 
 "" ==>> COLORS
 
