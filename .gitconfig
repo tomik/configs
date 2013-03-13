@@ -35,11 +35,13 @@
   bd = branch -D
   co = checkout
   d  = diff
+  dc  = diff --cached
   lg = log -p --decorate
   l  = log --oneline
   log = log
   wc = whatchanged
   plr = pull --rebase
+  rc = rebase --continue
 [push]
   default = upstream
 
