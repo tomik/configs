@@ -117,8 +117,10 @@ autocmd Filetype qf wincmd J
 "nnoremap <Leader>I :set nopaste<CR>
 
 " replacement from register
-nnoremap S "_diw"0P
-vnoremap S "_d"0P
+"nnoremap S "_diw"0P
+"vnoremap S "_d"0P
+
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
 map Y y$
 
@@ -186,11 +188,11 @@ let g:vimclojure#ParenRainbow=1
 let g:vimclojure#WantNailgun = 0
 let g:vimclojure#NailgunClient = $HOME . "/.vim/bin/ng"
 
+let g:EasyMotion_leader_key = '<space>'
+
 " keep my package sanity
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
-"call pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
@@ -202,6 +204,9 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'vim-scripts/cscope.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'wincent/Command-T'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'VimClojure'
+Bundle 'a.vim'
 
 " TODO Move this to a plugin
 " Function to find files in subdirectories.
