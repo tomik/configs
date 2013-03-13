@@ -16,11 +16,14 @@ for next in lib/* src/clj src/cljs; do
 done
 export EDITOR=vim
 
-#energycraft
-ALLEGRO_PATH=/Volumes/data/Users/tomik/Downloads/allegro-5.1.2
-export CPLUS_INCLUDE_PATH=/usr/local/Cellar/boost/1.49.0/include
-export LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib
-export LD_LIBRARY_PATH=/usr/local/Cellar/boost/1.49.0/lib
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh 2>/dev/null
+
+#for boost
+export CPLUS_INCLUDE_PATH=/usr/local/include
+export BOOST_LIB_PATH=/usr/local/lib
+export LIBRARY_PATH=$BOOST_LIB_PATH
+export LD_LIBRARY_PATH=$BOOST_LIB_PATH
 export CXX=clang++
 
 # start nailgun server
