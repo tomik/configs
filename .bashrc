@@ -1,6 +1,5 @@
 shopt -s checkwinsize
 
-
 export MANPATH=$MANPATH:/usr/share/man
 export PATH=/opt/local/bin:/usr/local/bin/:$HOME/usr/bin:$HOME/bin:$PATH
 export PATH=$PATH:/usr/local/texlive/2011basic/bin/universal-darwin:/Developer/usr/bin
@@ -19,11 +18,11 @@ export EDITOR=vim
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh 2>/dev/null
 
-#for boost
-export CPLUS_INCLUDE_PATH=/usr/local/include
-export BOOST_LIB_PATH=/usr/local/lib
-export LIBRARY_PATH=$BOOST_LIB_PATH
-export LD_LIBRARY_PATH=$BOOST_LIB_PATH
+#export CPLUS_INCLUDE_PATH=/usr/include/c++/4.2.1/x86_64-apple-darwin10:/usr/include/c++/4.2.1/:/usr/local/include:/usr/local/share/boost-1.53.0/include
+#export CPLUS_INCLUDE_PATH=/usr/include/c++/v1:/usr/local/share/boost-1.53.0/include
+#export BOOST_LIB_PATH=/usr/local/share/boost-1.53.0/lib
+#export LIBRARY_PATH=$BOOST_LIB_PATH
+#export LD_LIBRARY_PATH=$BOOST_LIB_PATH
 export CXX=clang++
 
 # start nailgun server
@@ -42,20 +41,23 @@ alias c='cd'
 alias v='vim'
 alias r='ranger'
 alias g='git'
+alias h='heroku'
 alias a='ack'
+alias ts='tig status'
 alias gr='grep'
 alias du='du -hs'
 alias dus='du | sort'
 alias df='df -h'
 alias su='sudo bash'
 alias rmf='rm -rf'
+alias dc='open -a "Double Commander" .'
 
 alias hibernateon="sudo pmset -a hibernatemode 5"
 alias hibernateoff="sudo pmset -a hibernatemode 3"
 
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
-alias rwgrep='perl -i~ -pe'
+#alias rwgrep='perl -i~ -pe'
 alias pygrep='grep -ri --include="*.py"'
 alias htmlgrep='grep -ri --include="*.html"'
 alias pyhtmlgrep='grep -ri --include="*.py" --include="*.html"'

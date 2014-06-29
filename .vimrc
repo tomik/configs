@@ -5,16 +5,21 @@ set t_Co=256
 set visualbell
 " use nifty non-vi features
 set nocompatible
+" disable the Ex mode
+nnoremap Q <nop>
 " erase old autocommands
 au!
 " reload .vimrc on save
 au BufWritePost .vimrc source ~/.vimrc
 " timeout for shortcuts
-set timeoutlen=200
+set timeoutlen=400
 " mouse is really usefule sometimes
 set mouse=a
 
 let mapleader = ";"
+
+set splitbelow
+set splitright
 
 "" ==>> FILES AND BUFFERS
 
@@ -51,9 +56,20 @@ cmap wm :w \| make
 
 set background=dark
 let g:solarized_termcolors = 256
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
+let g:solarized_visibility = "normal"
+let g:solarized_contrast = "normal"
 colorscheme solarized
+
+" some highlighting (EasyMotion, Fugitive) doesn't work well with solarized
+hi link EasyMotionTarget ErrorMsg
+hi link EasyMotionShade  Comment
+
+if has("gui_running")
+  set fuoptions=maxvert,maxhorz
+  au GUIEnter * set fullscreen
+endif
+set guifont=Courier\ New\ bold:h14
+set guioptions=
 
 "" ==>> SEARCH AND INDEX
 
@@ -70,7 +86,10 @@ set suffixes=.pyc,.bak,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx
 set history=50
 
 " search work under cursor
-noremap <Leader>a :Ack -i <cword><CR>
+nmap <Leader>a :Ack -i <cword><CR>
+" use ag not ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
 " save typing :nohl
 noremap <Leader><space> :nohl<CR>
 " jump to matching bracket for a short period of time
@@ -107,18 +126,30 @@ nnoremap k gk
 noremap js ?==>><CR>:nohl<CR>zt
 noremap ks /==>><CR>:nohl<CR>zt
 
-" navigating in copen
-nnoremap <Leader>n :cn<CR>
-nnoremap <Leader>p :cn<CR>
+nnoremap cP <esc>:let @" = expand("%")<CR>
+
+"nnoremap <Leader>lf :ln<CR>
+"nnoremap <Leader>lb :ln<CR>
+"let g:lt_location_list_toggle_map = '<leader>ls'
+"let g:lt_quickfix_list_toggle_map = '<leader>lc'
 autocmd Filetype qf wincmd J
 
-" paste mode
-"nnoremap <Leader>i :set paste<CR>
-"nnoremap <Leader>I :set nopaste<CR>
+" toggle the paredit
+let g:paredit_leader = ','
+nnoremap <Leader>p :let paredit_mode=1 - paredit_mode<CR>::let paredit_mode<CR>
+
+set pastetoggle=<F2>
 
 " replacement from register
-"nnoremap S "_diw"0P
-"vnoremap S "_d"0P
+"nnoremap cp "_diw"0P
+"vnoremap cp "_d"0P
+
+"This allows for change paste motion cp{motion}
+nmap <silent> cp :set opfunc=ChangePaste<CR>g@
+function! ChangePaste(type, ...)
+    silent exe "normal! `[v`]\"_c"
+    silent exe "normal! p"
+endfunction
 
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
@@ -179,15 +210,6 @@ au FileType d source set foldmethod=indent
 
 " ==>> PACKAGES
 
-" vimclojure
-let g:vimclojure#FuzzyIndent=1
-let g:vimclojure#HighlightBuiltins=1
-let g:vimclojure#HighlightContrib=1
-let g:vimclojure#DynamicHighlighting=1
-let g:vimclojure#ParenRainbow=1
-let g:vimclojure#WantNailgun = 0
-let g:vimclojure#NailgunClient = $HOME . "/.vim/bin/ng"
-
 let g:EasyMotion_leader_key = '<space>'
 
 " keep my package sanity
@@ -197,16 +219,40 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'guns/vim-clojure-static'
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'vim-scripts/cscope.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'wincent/Command-T'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'VimClojure'
 Bundle 'a.vim'
+Bundle 'vim-scripts/LustyJuggler'
+Bundle 'camelcasemotion'
+"Bundle 'scrooloose/syntastic'
+"Bundle 'Valloric/YouCompleteMe'
+
+nnoremap <silent> <Leader>t :CommandT<CR>
+nnoremap <silent> <Leader>b :CommandTBuffer<CR>
+
+" don't require extra confirmation to accept ycm config on startup
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_add_preview_to_completeopt = 0
+"set completeopt-=preview
+let g:LustyJugglerDefaultMappings = 0
+nmap <silent> <Leader>j :LustyJuggler<CR>
+
+" rainbow parentheses
+let g:rbpt_loadcmd_toggle = 1
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 " TODO Move this to a plugin
 " Function to find files in subdirectories.
@@ -241,26 +287,38 @@ function! Find(name)
 endfunction
 command! -nargs=1 Find :call Find("<args>")
 
+" Define a command to make it easier to use
+command! -nargs=+ QFDo call QFDo(<q-args>)
+
+if !exists("*QFDo")
+  " Function that does the work
+  function! QFDo(command)
+      " Create a dictionary so that we can
+      " get the list of buffers rather than the
+      " list of lines in buffers (easy way
+      " to get unique entries)
+      let buffer_numbers = {}
+      " For each entry, use the buffer number as 
+      " a dictionary key (won't get repeats)
+      for fixlist_entry in getqflist()
+          let buffer_numbers[fixlist_entry['bufnr']] = 1
+      endfor
+      " Make it into a list as it seems cleaner
+      let buffer_number_list = keys(buffer_numbers)
+
+      " For each buffer
+      for num in buffer_number_list
+          " Select the buffer
+          exe 'buffer' num
+          " Run the command that's passed as an argument
+          exe a:command
+          " Save if necessary
+          update
+      endfor
+    endfunction
+endif
+
 nmap <Leader>s <C-\>
-" I want to tell myself by <C-X><C-U> when I want to autocomplete.
-let g:clang_complete_auto = 0
-let g:clang_library_path = "/Volumes/data/Users/tomik/Downloads//clang+llvm-3.1-x86_64-apple-darwin11/lib"
-" /Developer/usr/clang-ide/lib/
-
-function! RefreshCS()
-  :silent ! find . -name "*cpp" -o -name "*hpp" > cscope.files
-  :silent ! cscope -b -i cscope.files > cscope.out
-  :silent cs kill -1
-  :silent cs add cscope.out
-  :silent !ctags -R .
-endfunction
-
-" refresh cscope and ctags
-nmap <Leader>r :exec RefreshCS()<CR>
-
-" use supertab with clang_complete
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-p>"
 
 " little mapping to help me with indentin
 noremap <Leader>i 20i<tab><esc>kF(jldw

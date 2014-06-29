@@ -1,6 +1,6 @@
 [user]
-  name = Tomas Kozelek
-  email = tomas.kozelek@gmail.com
+	name = Tomas Kozelek
+	email = tomas.kozelek@gmail.com
 [color]
   ui = auto
 [color "branch"]
@@ -24,9 +24,12 @@
   whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   pager = less -FRSX
   editor = /usr/bin/vim
+	excludesfile = /Volumes/data/Users/tomik/.gitignore_global
 [alias]
   st = status
   ci = commit
+  a = commit --amend
+  aa = commit -a --amend
   cia = commit -a
   cim = commit -m
   ciam = commit -a -m
@@ -42,6 +45,17 @@
   wc = whatchanged
   plr = pull --rebase
   rc = rebase --continue
+  ri = rebase -i
 [push]
   default = upstream
 
+[github]
+	user = tomik
+[ghi]
+	token = c307b5f25c064308cd468529265a068fcf98ba67
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
